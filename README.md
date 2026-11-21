@@ -34,7 +34,7 @@ Install **JDK 21**, clone this repository, and run these commands from its root.
 
 1. Close Minecraft and its launcher. Run the Fabric Installer, choose Minecraft **1.21.1**, and enable **Create Profile**. [Fabric Installer](https://fabricmc.net/use/installer/) · [Fabric installation guide](https://docs.fabricmc.net/players/installing-fabric/)
 2. Open Minecraft Launcher and go to **Minecraft Java Edition → Installations**. Edit the Fabric 1.21.1 installation. Use **Game Directory** if you want this profile to have its own mods and saves.
-3. Locate the chosen game directory and create a `mods` folder if needed. Put the Fabric API JAR and the Text2Craft JAR together in that folder. Get Text2Craft from [GitHub Releases](https://github.com/dzotyara/llmcraft/releases) or [build it from source](#build-from-source) if a release has yet to be published.
+3. Locate the chosen game directory and create a `mods` folder if needed. Put the Fabric API JAR and the Text2Craft JAR together in that folder. Get Text2Craft from [GitHub Releases](https://github.com/dzotyara/Text2Craft/releases) or [build it from source](#build-from-source) if a release has yet to be published.
 4. Select the Fabric 1.21.1 profile and click **Play**. The main menu should show **Text2Craft Studio** and **Guide**.
 
 If you use the default game directory, the location is:

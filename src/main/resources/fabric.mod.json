@@ -6,7 +6,7 @@
   "description": "Generate, preview, and place structures in Text2Craft Studio using local Ollama models.",
   "icon": "assets/llmcraft/icon.png",
   "authors": ["dzotyara"],
-  "contact": {"sources": "https://github.com/dzotyara/llmcraft"},
+  "contact": {"sources": "https://github.com/dzotyara/Text2Craft"},
   "environment": "*",
   "entrypoints": {
     "main": ["io.github.dzotyara.llmcraft.LlmCraft"],
