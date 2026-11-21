@@ -35,3 +35,13 @@ tasks.register('checkBlueprints', JavaExec) {
 }
 
 check.dependsOn checkBlueprints
+
+tasks.register('ollamaBenchmark', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'io.github.dzotyara.llmcraft.OllamaBenchmark'
+    args providers.gradleProperty('benchPort').getOrElse('11434'),
+            providers.gradleProperty('benchModel').getOrElse('qwen2.5-coder:7b'),
+            layout.buildDirectory.dir('reports/ollama-benchmark').get().asFile.absolutePath,
+            providers.gradleProperty('benchLimit').getOrElse('30')
+}

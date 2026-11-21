@@ -8,38 +8,121 @@ Standalone Fabric mod generation is part of the [roadmap](PLAN.md).
 
 ## Requirements
 
-- Minecraft Java Edition 1.21.1, Java 21, Fabric Loader 0.16.10 or later, and Fabric API for Minecraft 1.21.1.
-- New structures use local Ollama. The **Ollama Setup** screen can use an already running installation or download a managed copy. It offers Qwen2.5-Coder 1.5B, 3B, 7B, and local models detected by Ollama.
-- Structure placement is available in local single-player saves.
+- Minecraft Java Edition **1.21.1**, Java **21**, and Fabric Loader **0.16.10** or later for that Minecraft version.
+- Fabric API for **1.21.1**. Development tests use release **0.116.1+1.21.1**. [Fabric API download](https://modrinth.com/mod/fabric-api/version/0.116.1%2B1.21.1)
+- A running local Ollama service for generating new structures. LLMCraft can set one up from Minecraft. The hammer and saved structures are available offline.
+- Structure placement is available in local single-player worlds.
 
-## In the Studio
+## Install with the official launcher
 
-On the first visit to the Minecraft main menu, the LLMCraft guide explains the controls and offers Ollama setup. Use **Guide** to reopen it. In **Ollama Setup**, select **Choose Model**, then **Install Ollama & Model** or **Download Model**. The setup screen shows download progress.
+1. Close Minecraft and its launcher. Run the Fabric Installer, choose Minecraft **1.21.1**, and enable **Create Profile**. [Fabric Installer](https://fabricmc.net/use/installer/) · [Fabric installation guide](https://docs.fabricmc.net/players/installing-fabric/)
+2. Open Minecraft Launcher and go to **Minecraft Java Edition → Installations**. Edit the Fabric 1.21.1 installation. Use **Game Directory** if you want this profile to have its own mods and saves.
+3. Locate the chosen game directory and create a `mods` folder if needed. Put the Fabric API JAR and the LLMCraft JAR together in that folder. Get LLMCraft from [GitHub Releases](https://github.com/dzotyara/llmcraft/releases) or [build it from source](#build-from-source) if a release has yet to be published.
+4. Select the Fabric 1.21.1 profile and click **Play**. The main menu should show **LLMCraft Studio** and **Guide**.
 
-1. Select **LLMCraft Studio** from the main menu. Use the amethyst console or press **F8**.
-2. Select **Get Hammer**. Left-click a target to strike. Right-click to throw the hammer and watch it return.
-3. Select **Build**, enter a prompt, and click **Generate**. Wait for the model to produce a block blueprint. If a model is missing, open **Ollama Setup** and select **Download Model**.
-4. Aim at the construction plot. The translucent preview follows your aim. Press **R** to rotate, **Esc** to cancel, or left-click to place.
-5. Return to **Build** and choose **Save to Library**. **Undo Placement** reverses the last successful placement in this world during the current session if the structure still matches the original placement.
+If you use the default game directory, the location is:
 
-## In ordinary worlds
+| OS | Default game directory |
+| --- | --- |
+| Windows | `%APPDATA%\.minecraft` |
+| macOS | `~/Library/Application Support/minecraft` |
+| Linux | `~/.minecraft` |
 
-Press **F8**, select a saved structure, and place it using the same preview. Saved structures work offline. Creative placement is free. In Survival, press **M** while previewing to see required materials and any shortages. Placing a structure consumes the required blocks, and a successful undo refunds them.
+[Fabric guide to installing mods](https://docs.fabricmc.net/players/installing-mods)
 
-The **Thunder Hammer** is available in the **LLMCraft** Creative tab. In Survival, craft it with four iron ingots, one amethyst shard, one copper ingot, and one stick.
+## Set up local generation
+
+On the first visit to the Minecraft main menu, the LLMCraft welcome screen offers **Open Studio**, **Set Up Ollama**, and **Later**. The **Guide** button reopens it any time.
+
+1. Open **Set Up Ollama → Choose Model**. The list marks detected local models as **Installed**. The download catalog lists the size of each model.
+2. If Ollama is running, choose an installed model or use **Download Model**. If Ollama is unavailable, select **Install Ollama & Model**. The setup screen shows the archive download, verification, extraction, service startup, and model download as they happen.
+3. Wait for the selected model to appear as ready. You can enter the Studio and try the hammer while setup runs.
+
+| Qwen2.5-Coder model | Approximate model download | Use |
+| --- | --- | --- |
+| 1.5B | 986 MB | Try a small structure with a smaller download. |
+| 3B | 1.9 GB | Try a model between 1.5B and 7B. |
+| 7B | 4.7 GB | The baseline model for LLMCraft's prompt-quality checks. |
+
+The listed sizes cover model files. If LLMCraft needs to install Ollama, the setup screen also shows its package size. Hardware, prompt length, and whether the model is already loaded affect generation time. [Ollama model catalog](https://ollama.com/library/qwen2.5-coder)
+
+The built-in installer offers packages for Windows, macOS, and Linux on x64 and ARM64. It has been tested on Windows x64. Linux managed setup uses `tar` with Zstandard support. A managed install starts its own loopback service and stops it when Minecraft exits.
+
+For a separately installed Ollama, start the application or run `ollama serve`, then use **Check Connection**. LLMCraft checks the default local address `127.0.0.1:11434`. [Official Ollama installer](https://ollama.com/download)
+
+## Build your first structure
+
+1. Open **LLMCraft Studio** from the main menu. Right-click the amethyst console or press **F8**.
+2. Select **Get Hammer**. Left-click a target to strike it with an electrical hit. Right-click to throw the hammer and watch it return.
+3. Open **Build** and try this prompt:
+
+   > Build a small white quartz gateway, 5 blocks wide, 5 blocks tall and one block deep, with a clear two-block-tall central passage and a sea lantern at the top.
+
+4. Click **Generate**. The local model produces block geometry and LLMCraft validates it before showing the translucent silhouette. You can cancel an active request with **Esc**.
+5. Aim at the construction plot. Press **R** to rotate and left-click to place. A red preview marks a placement problem. The HUD shows the reason or the available controls.
+6. Return to **Build → Save to Library** to keep the blueprint. **Undo Placement** reverses the last successful placement in the current world and session if it can safely restore the blocks.
+
+For a more predictable result, specify dimensions, materials, and a few visible details. A blueprint can span up to **24 × 24 × 24** blocks and occupy up to **4,096** positions. If generation fails, the prompt stays in **Build** so you can simplify it and retry.
+
+## Use your creations in an ordinary world
+
+Open an existing single-player save, press **F8**, and select a saved blueprint from **Structure Library**. Position the silhouette and place it as you would in the Studio.
+
+- **Creative** places saved structures without spending blocks.
+- **Survival** uses the exact block types and quantities from your inventory. Press **M** while previewing to see the full material list. Placement is refused while materials are missing or the space is blocked. A successful undo restores the spent materials if there is room for the refund.
+
+The **Thunder Hammer** is in the **LLMCraft** Creative tab. In Survival, craft it in a 3×3 grid:
 
 ```text
-Iron   Amethyst  Iron
-Iron   Copper    Iron
+Iron   Amethyst shard   Iron
+Iron   Copper ingot     Iron
        Stick
 ```
 
-Saved structures live under `config/llmcraft/structures`.
+## Controls
 
-The on-screen LLMCraft guide shows the current controls in the Studio and in ordinary single-player worlds. It follows Minecraft's HUD visibility and your keybinds.
+| Default control | Action |
+| --- | --- |
+| F8 | Open the Studio console or the library in ordinary worlds. |
+| Left mouse button | Strike with the hammer or place the active structure preview. |
+| Right mouse button | Throw the held hammer. |
+| R | Rotate an active preview. |
+| M | Open the material list in Survival while previewing. |
+| Esc | Cancel active generation or placement preview. |
+| F1 | Toggle Minecraft's HUD, including the LLMCraft hints. |
 
-The managed runtime and its model files are stored in `config/llmcraft/ollama`. The managed process listens on a private loopback port and exits with Minecraft. Linux managed setup uses `tar` with Zstandard support. The official installer remains available from the same screen.
+The in-game guide follows your keybinds under **Options → Controls → Key Binds**.
 
-## Build
+## Troubleshooting
 
-Run `./gradlew build` (Windows: `gradlew.bat build`) with JDK 21. The versioned mod JAR is in `build/libs`. Run `./gradlew runClient` to open a development client.
+| What you see | What to check |
+| --- | --- |
+| **LLMCraft Studio** is missing | Confirm the launcher is running Fabric for Java Edition **1.21.1**. Confirm both JARs are in the selected profile's `mods` folder. |
+| Fabric reports a dependency or version error | Check the Minecraft, Fabric Loader, Fabric API, and LLMCraft versions. Keep one LLMCraft JAR active per profile. |
+| Ollama setup fails | Check available disk space and the status shown in **Ollama Setup**. For a managed service that fails to start, inspect `config/llmcraft/ollama/server.log`. For an external installation, start Ollama and use **Check Connection**. |
+| Linux cannot unpack Ollama | Check that your `tar` supports Zstandard, or use **Official Installer** and connect to the running service. |
+| A result is rejected | Try a smaller structure with a clearer palette and fewer details. LLMCraft only previews geometry that passes its limits. |
+| The preview is red | Move the silhouette away from existing blocks. In the Studio, keep the entire structure inside the plot. In Survival, press **M** to check materials. |
+| Undo is refused | Check whether placed blocks were edited or the refunded materials fit in your inventory. Undo history lasts for the current game session. |
+
+LLMCraft data lives inside the selected game directory. Saved blueprints are under `config/llmcraft/structures`. The managed service and its model cache are under `config/llmcraft/ollama`. Back up the blueprints and the world's save separately if you want to keep both the reusable designs and blocks already placed.
+
+To update LLMCraft, close Minecraft and replace the older LLMCraft JAR in that profile's `mods` folder. Keep the same game directory to retain worlds, blueprints, and Ollama downloads.
+
+## Build from source
+
+Clone the repository, set up **JDK 21**, and build from its root:
+
+```text
+./gradlew build
+```
+
+On Windows, use `gradlew.bat build`. The installable JAR is in `build/libs`. Run `./gradlew runClient` or `gradlew.bat runClient` to open a development client with a separate game directory.
+
+### Check local generation quality
+
+With Qwen2.5-Coder 7B installed in a running local Ollama, run `./gradlew ollamaBenchmark` or `gradlew.bat ollamaBenchmark`. Add `-PbenchPort=PORT` for an Ollama instance listening on a different local port. Use `-PbenchLimit=3` for a quick check or `-PbenchModel=MODEL` to compare an installed model.
+
+The default run records 30 prompts, response times, and generated blueprints in `build/reports/ollama-benchmark`. The automated score checks dimensions, the requested materials, and the roof material or central opening where specified. Check the full geometry separately for features such as detailed silhouettes and room layouts.
+
+In one Windows run with Ollama 0.40.16, Qwen2.5-Coder 7B, and an RTX 3080 (10 GB), all 30 blueprints passed validation and 13 passed the prompt checks. The first request took 3.0 seconds, and the median of the remaining requests was 0.9 seconds.

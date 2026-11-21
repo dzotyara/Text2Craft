@@ -1,0 +1,30 @@
+stone-column	Stack exactly three stone blocks vertically in one column.	1	3	1	stone	-
+brick-platform	A solid flat platform of stone bricks, six blocks wide and four blocks deep, one block thick.	6	1	4	stone_bricks	-
+quartz-step	Build a small two-step quartz staircase, four blocks wide, two blocks deep and two blocks high. Use quartz blocks.	4	2	2	quartz_block	-
+blackstone-wall	A solid blackstone wall, eight blocks wide, five blocks tall and one block thick.	8	5	1	blackstone	-
+oak-deck	Build a level rectangular oak plank deck eight blocks wide by six blocks deep and one block thick.	8	1	6	oak_planks	-
+glass-panel	Build a clear glass panel four blocks wide, three blocks tall and one block thick.	4	3	1	glass	-
+spruce-spire	Make a six-block-tall spruce plank pillar with a 2-by-2 footprint.	2	6	2	spruce_planks	-
+prismarine-pad	Make a flat five-by-five prismarine square, one block thick.	5	1	5	prismarine	-
+mud-brick-slab	Build a solid block of mud bricks with a 4-by-3 footprint and a height of two blocks.	4	2	3	mud_bricks	-
+red-sandstone-dais	Make a red sandstone dais 7 blocks wide, 5 blocks deep and 2 blocks tall.	7	2	5	red_sandstone	-
+watchtower	A blackstone watchtower with a 5-by-5 footprint, a total height of 8 blocks and a sea lantern at the highest point. Use only blackstone and sea lanterns.	5	8	5	blackstone,sea_lantern	top=sea_lantern
+obelisk	A polished blackstone brick obelisk with a 3-by-3 footprint, 7 blocks tall including a gold block at its tip.	3	7	3	polished_blackstone_bricks,gold_block	top=gold_block
+crystal-post	A 1-by-1 stone post, four blocks tall including an amethyst block cap.	1	4	1	stone,amethyst_block	top=amethyst_block
+dock-lamp	A 6-by-3 oak plank dock with a glowstone lamp at the highest point, three blocks high overall. Use oak planks and glowstone.	6	3	3	oak_planks,glowstone	top=glowstone
+blue-pavilion	An open seaside pavilion with quartz pillars and a flat blue concrete roof. Total size 7 wide, 5 tall, and 5 deep. Use only quartz blocks and blue concrete.	7	5	5	quartz_block,blue_concrete	top=blue_concrete
+prismarine-beacon	A 3-by-3 prismarine beacon five blocks tall, with a sea lantern at the highest point.	3	5	3	prismarine,sea_lantern	top=sea_lantern
+copper-monument	A 3-by-3, six-block-tall monument with a smooth stone base and a copper block at its tip.	3	6	3	smooth_stone,copper_block	top=copper_block
+cabin-roof	A birch plank cabin with a flat red concrete roof, six blocks wide, four blocks tall and five blocks deep.	6	4	5	birch_planks,red_concrete	top=red_concrete
+gold-roof-tower	Build a blue concrete tower with a gold block roof, 4 blocks wide, 6 blocks tall and 4 blocks deep. Use only those materials.	4	6	4	blue_concrete,gold_block	top=gold_block
+dock-tower	Build a spruce plank lookout with a glowstone tip, 4 blocks across, 7 blocks tall and 4 blocks deep.	4	7	4	spruce_planks,glowstone	top=glowstone
+pink-kiosk	A cherry plank kiosk with a white concrete canopy, 5 blocks wide, 4 blocks tall and 4 blocks deep.	5	4	4	cherry_planks,white_concrete	top=white_concrete
+prismarine-statue	A dark prismarine statue on a 3-by-3 base with an amethyst block at the highest point. Six blocks high overall. Use dark prismarine and amethyst blocks.	3	6	3	dark_prismarine,amethyst_block	top=amethyst_block
+quartz-gate	Build a small white quartz gateway, 5 blocks wide, 5 blocks tall and one block deep, with a clear two-block-tall central passage and a sea lantern at the top.	5	5	1	quartz_block,sea_lantern	opening=2
+stone-arch	A stone arch 5 blocks wide, 5 blocks tall and one block deep. Leave the bottom two blocks in the center column open. Use only stone.	5	5	1	stone	opening=2
+blackstone-gate	A blackstone gateway, 7 blocks wide, 6 blocks tall and 2 blocks deep, with an unobstructed, two-block-tall central walkway through the depth.	7	6	2	blackstone	opening=2
+sandstone-portal	A sandstone portal frame 5 blocks wide, 6 blocks tall and 1 block deep, with a clear three-block-high entrance in the middle and no floor across the doorway.	5	6	1	sandstone	opening=3
+birch-tunnel	A small birch plank tunnel, 5 blocks wide, 4 tall and 7 deep. Leave a two-block-tall open passage down its center at ground level, from front to back.	5	4	7	birch_planks	opening=2
+mud-brick-arch	A mud brick arch with an open ground-level passage in the middle. Make it 7 blocks across, 5 blocks tall and 3 blocks deep, with at least 2 blocks of clearance.	7	5	3	mud_bricks	opening=2
+blue-gate	A blue concrete gate, 5 blocks wide, 4 blocks tall and 2 blocks deep, with an open two-block-tall central passage. Use only blue concrete.	5	4	2	blue_concrete	opening=2
+prismarine-bridge	Make a 7-wide, 5-tall, 3-deep prismarine bridge face with a three-block-tall central opening all the way through. Use only prismarine.	7	5	3	prismarine	opening=3

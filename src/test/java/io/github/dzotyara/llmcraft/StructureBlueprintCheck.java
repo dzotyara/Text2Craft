@@ -3,6 +3,7 @@ package io.github.dzotyara.llmcraft;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.Collections;
+import java.util.List;
 
 final class StructureBlueprintCheck {
     private static final String BASE = """
@@ -24,6 +25,17 @@ final class StructureBlueprintCheck {
     }
 
     static void run() {
+        var properties = StructureBlueprint.schema().getAsJsonObject("properties");
+        expect(List.copyOf(properties.keySet()).equals(List.of("version", "name", "operations")),
+                "Schema follows the blueprint example's property order");
+        var operationTypes = properties.getAsJsonObject("operations").getAsJsonObject("items").getAsJsonArray("anyOf");
+        var fillProperties = operationTypes.get(0).getAsJsonObject().getAsJsonObject("properties");
+        var carveProperties = operationTypes.get(1).getAsJsonObject().getAsJsonObject("properties");
+        expect(List.copyOf(fillProperties.keySet()).equals(List.of("op", "from", "to", "block")),
+                "Fill grammar starts with the operation type");
+        expect(List.copyOf(carveProperties.keySet()).equals(List.of("op", "from", "to")),
+                "Carve grammar starts with the operation type");
+
         var blueprint = StructureBlueprint.parse(BASE);
         expect(blueprint.name().equals("Pavilion"), "Name survives parsing");
         expect(blueprint.blockIds().size() == 48, "Carving opens the middle");

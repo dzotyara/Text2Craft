@@ -14,6 +14,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -109,19 +110,29 @@ final class StructureBlueprint {
     static JsonObject schema() {
         var axis = Map.of("type", "integer", "minimum", 0, "maximum", MAX_COORDINATE);
         var position = Map.of("type", "array", "items", axis, "minItems", 3, "maxItems", 3);
+        // Ollama's schema grammar follows property order. Match the examples in INSTRUCTIONS.
+        var fillProperties = new LinkedHashMap<String, Object>();
+        fillProperties.put("op", Map.of("enum", List.of("fill")));
+        fillProperties.put("from", position);
+        fillProperties.put("to", position);
+        fillProperties.put("block", Map.of("type", "string", "enum", MATERIALS));
         var fill = Map.of("type", "object", "additionalProperties", false,
                 "required", List.of("op", "from", "to", "block"),
-                "properties", Map.of("op", Map.of("enum", List.of("fill")), "from", position,
-                        "to", position, "block", Map.of("type", "string", "enum", MATERIALS)));
+                "properties", fillProperties);
+        var carveProperties = new LinkedHashMap<>(fillProperties);
+        carveProperties.put("op", Map.of("enum", List.of("carve")));
+        carveProperties.remove("block");
         var carve = Map.of("type", "object", "additionalProperties", false,
                 "required", List.of("op", "from", "to"),
-                "properties", Map.of("op", Map.of("enum", List.of("carve")), "from", position, "to", position));
+                "properties", carveProperties);
+        var blueprintProperties = new LinkedHashMap<String, Object>();
+        blueprintProperties.put("version", Map.of("type", "integer", "enum", List.of(1)));
+        blueprintProperties.put("name", Map.of("type", "string", "minLength", 1, "maxLength", 48));
+        blueprintProperties.put("operations", Map.of("type", "array", "minItems", 1,
+                "maxItems", MAX_GENERATED_OPERATIONS, "items", Map.of("anyOf", List.of(fill, carve))));
         return GSON.toJsonTree(Map.of("type", "object", "additionalProperties", false,
                 "required", List.of("version", "name", "operations"),
-                "properties", Map.of("version", Map.of("type", "integer", "enum", List.of(1)),
-                        "name", Map.of("type", "string", "minLength", 1, "maxLength", 48),
-                        "operations", Map.of("type", "array", "minItems", 1, "maxItems", MAX_GENERATED_OPERATIONS,
-                                "items", Map.of("anyOf", List.of(fill, carve)))))).getAsJsonObject();
+                "properties", blueprintProperties)).getAsJsonObject();
     }
 
     static StructureBlueprint parse(String json) {
