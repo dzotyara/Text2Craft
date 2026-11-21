@@ -1,4 +1,4 @@
-<img src="docs/banner.png" alt="Text2Craft" width="100%" />
+<img src="docs/banner.gif" alt="Text2Craft" width="100%" />
 
 # Text2Craft
 
