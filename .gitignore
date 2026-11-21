@@ -1,5 +1,6 @@
 /.gradle/
 /.local/
+/PLAN.md
 /build/
 /run/
 /logs/
