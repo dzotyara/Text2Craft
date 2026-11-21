@@ -1,0 +1,6 @@
+{
+  "parent": "llmcraft:item/template_thunder_hammer",
+  "overrides": [
+    {"predicate": {"custom_model_data": 1}, "model": "llmcraft:item/thunder_hammer_in_flight"}
+  ]
+}

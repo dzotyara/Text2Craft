@@ -1,0 +1,23 @@
+{
+  "parent": "minecraft:item/amethyst_shard",
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "minecraft:item/iron_axe"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "minecraft:item/diamond_sword"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "minecraft:item/blaze_rod"
+    }
+  ]
+}

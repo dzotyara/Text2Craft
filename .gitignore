@@ -1,0 +1,9 @@
+/.gradle/
+/.local/
+/build/
+/run/
+/logs/
+/.idea/
+*.iml
+/dzotyara-under-1mb.png
+/src/main/resources/assets/llmcraft/textures/item/thunder_hammer.png

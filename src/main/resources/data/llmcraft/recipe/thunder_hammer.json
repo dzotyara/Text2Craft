@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": ["IAI", "ICI", " S "],
+  "key": {
+    "I": {"item": "minecraft:iron_ingot"},
+    "A": {"item": "minecraft:amethyst_shard"},
+    "C": {"item": "minecraft:copper_ingot"},
+    "S": {"item": "minecraft:stick"}
+  },
+  "result": {"id": "llmcraft:thunder_hammer"}
+}

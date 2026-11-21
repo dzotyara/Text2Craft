@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "llmcraft",
+  "version": "${version}",
+  "name": "LLMCraft",
+  "description": "Create items and structures in LLMCraft Studio.",
+  "authors": ["dzotyara"],
+  "contact": {"sources": "https://github.com/dzotyara/llmcraft"},
+  "environment": "*",
+  "entrypoints": {
+    "main": ["io.github.dzotyara.llmcraft.LlmCraft"],
+    "client": ["io.github.dzotyara.llmcraft.StudioClient"]
+  },
+  "mixins": ["llmcraft.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "fabric-api": "*",
+    "minecraft": "1.21.1",
+    "java": ">=21"
+  }
+}
