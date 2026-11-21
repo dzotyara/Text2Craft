@@ -261,7 +261,7 @@ final class StructurePlacement {
             }
             return true;
         } catch (RuntimeException failure) {
-            LOGGER.error("LLMCraft block update failed; restoring previous blocks", failure);
+            LOGGER.error("Text2Craft block update failed; restoring previous blocks", failure);
         }
 
         for (BlockPos pos : attempted.reversed()) {
@@ -270,10 +270,10 @@ final class StructurePlacement {
                 if (world.getBlockState(pos) != originalState
                         && (!world.setBlockState(pos, originalState, WRITE_FLAGS)
                         || world.getBlockState(pos) != originalState)) {
-                    LOGGER.error("LLMCraft could not restore block at {}", pos.toShortString());
+                    LOGGER.error("Text2Craft could not restore block at {}", pos.toShortString());
                 }
             } catch (RuntimeException failure) {
-                LOGGER.error("LLMCraft could not restore block at " + pos.toShortString(), failure);
+                LOGGER.error("Text2Craft could not restore block at " + pos.toShortString(), failure);
             }
         }
         return false;

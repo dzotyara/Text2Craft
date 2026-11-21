@@ -43,7 +43,7 @@ public final class LlmCraft implements ModInitializer {
         ThunderHammerItem.init();
         Registry.register(Registries.ITEM_GROUP, Identifier.of("llmcraft", "library"),
                 FabricItemGroup.builder()
-                        .displayName(Text.literal("✦ LLMCraft"))
+                        .displayName(Text.literal("✦ Text2Craft"))
                         .icon(THUNDER_HAMMER::getDefaultStack)
                         .entries((context, entries) -> {
                             entries.add(THUNDER_HAMMER);
@@ -55,14 +55,14 @@ public final class LlmCraft implements ModInitializer {
             if (isStudio(server)) StudioArena.prepare(server.getOverworld());
         });
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) ->
-                dispatcher.register(literal("llmcraft")
+        CommandRegistrationCallback.EVENT.register((dispatcher, access, environment) -> {
+            var command = dispatcher.register(literal("text2craft")
                         .then(literal("catalog").executes(context -> {
                             var source = context.getSource();
                             var entries = LIBRARY.entries();
                             source.sendFeedback(() -> Text.literal(entries.isEmpty()
-                                    ? "Keep a creation in LLMCraft Studio to add it to the catalog."
-                                    : "LLMCraft catalog. Use /llmcraft craft <id>."), false);
+                                    ? "Keep a creation in Text2Craft Studio to add it to the catalog."
+                                    : "Text2Craft catalog. Use /text2craft craft <id>."), false);
                             entries.forEach((id, blueprint) -> source.sendFeedback(() -> Text.literal(
                                     id + " — " + blueprint.name() + " (" + cost(blueprint) + " amethyst shards)"),
                                     false));
@@ -77,7 +77,9 @@ public final class LlmCraft implements ModInitializer {
                                 .then(argument("id", StringArgumentType.word())
                                         .suggests((context, builder) -> suggestions(builder))
                                         .executes(context -> deliver(context.getSource(),
-                                                StringArgumentType.getString(context, "id"), false))))));
+                                                StringArgumentType.getString(context, "id"), false)))));
+            dispatcher.register(literal("llmcraft").redirect(command));
+        });
     }
 
     static boolean isStudio(MinecraftServer server) {
@@ -98,7 +100,7 @@ public final class LlmCraft implements ModInitializer {
         ServerPlayerEntity player = source.getPlayerOrThrow();
         Blueprint blueprint = LIBRARY.entries().get(id);
         if (blueprint == null) {
-            source.sendError(Text.literal("Unknown LLMCraft creation."));
+            source.sendError(Text.literal("Unknown Text2Craft creation."));
             return 0;
         }
         var inventory = player.getInventory();

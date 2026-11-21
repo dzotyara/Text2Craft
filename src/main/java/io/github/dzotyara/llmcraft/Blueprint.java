@@ -26,7 +26,7 @@ record Blueprint(String name, Kind kind, String base, String action, int power) 
     );
 
     static final String INSTRUCTIONS = """
-            Generate one JSON object for the Minecraft mod LLMCraft. Follow one of these examples:
+            Generate one JSON object for the Minecraft mod Text2Craft. Follow one of these examples:
             {"name":"Lightning Hammer","kind":"item","base":"axe","action":"shock","power":3}
             {"name":"Floating Tower","kind":"structure","base":"prismarine","action":"tower","power":4}
             Name: 1 to 48 characters. Power: integer 1 to 5.

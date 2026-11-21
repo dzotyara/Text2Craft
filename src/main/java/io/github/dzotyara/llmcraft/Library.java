@@ -30,7 +30,7 @@ final class Library<T> {
             files.filter(path -> path.getFileName().toString().matches("[a-z0-9-]+\\.json"))
                     .sorted().forEach(this::load);
         } catch (IOException e) {
-            LoggerFactory.getLogger("LLMCraft").warn("Could not read the local library", e);
+            LoggerFactory.getLogger("Text2Craft").warn("Could not read the local library", e);
         }
     }
 
@@ -40,7 +40,7 @@ final class Library<T> {
             if (Files.size(file) > 262_144) throw new IOException("Blueprint is too large");
             entries.put(filename.substring(0, filename.length() - 5), parse.apply(Files.readString(file)));
         } catch (IOException | IllegalArgumentException e) {
-            LoggerFactory.getLogger("LLMCraft").warn("Could not load {}", filename, e);
+            LoggerFactory.getLogger("Text2Craft").warn("Could not load {}", filename, e);
         }
     }
 

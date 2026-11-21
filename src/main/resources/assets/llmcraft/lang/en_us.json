@@ -1,7 +1,7 @@
 {
-  "key.llmcraft.studio": "Open LLMCraft Studio Console",
-  "category.llmcraft": "LLMCraft",
-  "item.llmcraft.creation": "LLMCraft Creation",
+  "key.llmcraft.studio": "Open Text2Craft Studio Console",
+  "category.llmcraft": "Text2Craft",
+  "item.llmcraft.creation": "Text2Craft Creation",
   "item.llmcraft.thunder_hammer": "Thunder Hammer",
   "key.llmcraft.rotate": "Rotate Structure",
   "key.llmcraft.materials": "Show Structure Materials"

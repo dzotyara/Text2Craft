@@ -42,7 +42,7 @@ final class OllamaRuntime {
 
     OllamaRuntime(Path root) {
         this.root = root.toAbsolutePath();
-        Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "LLMCraft Ollama shutdown"));
+        Runtime.getRuntime().addShutdownHook(new Thread(this::stop, "Text2Craft Ollama shutdown"));
     }
 
     static Package platform(String os, String architecture) {

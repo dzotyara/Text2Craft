@@ -21,6 +21,7 @@ import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.resource.DataConfiguration;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.path.SymlinkValidationException;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.GameRules;
@@ -33,13 +34,16 @@ import net.minecraft.world.gen.chunk.FlatChunkGeneratorConfig;
 import net.minecraft.world.gen.chunk.FlatChunkGeneratorLayer;
 import net.minecraft.world.level.LevelInfo;
 import org.lwjgl.glfw.GLFW;
+import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public final class StudioClient implements ClientModInitializer {
+    private static final String STUDIO_NAME = "Text2Craft Studio";
     private static final StudioScreen.Session SESSION = new StudioScreen.Session();
     private boolean guideShown;
 
@@ -50,7 +54,7 @@ public final class StudioClient implements ClientModInitializer {
                 InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_F8, "category.llmcraft"));
         ScreenEvents.AFTER_INIT.register((client, screen, width, height) -> {
             if (screen instanceof TitleScreen) {
-                Screens.getButtons(screen).add(ButtonWidget.builder(Text.literal("✦ LLMCraft Studio"),
+                Screens.getButtons(screen).add(ButtonWidget.builder(Text.literal("✦ " + STUDIO_NAME),
                                 button -> openWorld(client, screen))
                         .dimensions(8, height - 30, 122, 20).build());
                 Screens.getButtons(screen).add(ButtonWidget.builder(Text.literal("Guide"),
@@ -114,6 +118,13 @@ public final class StudioClient implements ClientModInitializer {
     private static void openWorld(MinecraftClient client, Screen parent) {
         var loader = client.createIntegratedServerLoader();
         if (client.getLevelStorage().levelExists(LlmCraft.STUDIO_SAVE)) {
+            try (var session = client.getLevelStorage().createSession(LlmCraft.STUDIO_SAVE)) {
+                if ("LLMCraft Studio".equals(session.getLevelSummary(session.readLevelProperties()).getDisplayName())) {
+                    session.save(STUDIO_NAME);
+                }
+            } catch (IOException | SymlinkValidationException e) {
+                LoggerFactory.getLogger("Text2Craft").warn("Could not update the Studio display name", e);
+            }
             loader.start(LlmCraft.STUDIO_SAVE, () -> client.setScreen(parent));
             return;
         }
@@ -122,7 +133,7 @@ public final class StudioClient implements ClientModInitializer {
         rules.get(GameRules.DO_MOB_SPAWNING).set(false, null);
         rules.get(GameRules.DO_DAYLIGHT_CYCLE).set(false, null);
         rules.get(GameRules.SPAWN_RADIUS).set(0, null);
-        LevelInfo info = new LevelInfo("LLMCraft Studio", GameMode.CREATIVE, false, Difficulty.NORMAL,
+        LevelInfo info = new LevelInfo(STUDIO_NAME, GameMode.CREATIVE, false, Difficulty.NORMAL,
                 true, rules, DataConfiguration.SAFE_MODE);
         loader.createAndStart(LlmCraft.STUDIO_SAVE, info, new GeneratorOptions(0L, false, false), registries -> {
             var biomes = registries.get(RegistryKeys.BIOME);

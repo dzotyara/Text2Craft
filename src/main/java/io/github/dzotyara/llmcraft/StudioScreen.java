@@ -195,7 +195,7 @@ final class StudioScreen extends Screen {
 
     private StudioScreen(Session session, Panel panel, int page, Screen returnScreen) {
         super(Text.literal(switch (panel) {
-            case STUDIO -> "LLMCraft Studio";
+            case STUDIO -> "Text2Craft Studio";
             case BUILD -> "Build";
             case MODEL -> "Ollama Setup";
             case MODELS -> "Choose a Model";

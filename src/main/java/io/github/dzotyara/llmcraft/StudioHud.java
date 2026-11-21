@@ -28,7 +28,7 @@ final class StudioHud {
         }
 
         int available = context.getScaledWindowWidth() - 2 * MARGIN;
-        String title = studio ? "LLMCraft Studio" : "LLMCraft";
+        String title = studio ? "Text2Craft Studio" : "Text2Craft";
         int textWidth = client.textRenderer.getWidth(title);
         for (String instruction : instructions) textWidth = Math.max(textWidth, client.textRenderer.getWidth(instruction));
         int cardWidth = Math.min(available, textWidth + 14);

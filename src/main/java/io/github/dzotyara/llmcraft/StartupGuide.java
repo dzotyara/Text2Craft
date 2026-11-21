@@ -21,7 +21,7 @@ final class StartupGuide extends Screen {
     private int panelWidth;
 
     StartupGuide(Screen titleScreen, StudioScreen.Session session, Runnable openStudio, String consoleKey) {
-        super(Text.literal("Welcome to LLMCraft"));
+        super(Text.literal("Welcome to Text2Craft"));
         this.titleScreen = titleScreen;
         this.session = session;
         this.openStudio = openStudio;
@@ -68,7 +68,7 @@ final class StartupGuide extends Screen {
         line(context, "Make a structure from a prompt with local Ollama.", 51);
         line(context, "Aim the preview. " + client.options.attackKey.getBoundKeyLocalizedText().getString()
                 + " places it.", 64);
-        line(context, consoleKey + " opens LLMCraft while playing.", 77);
+        line(context, consoleKey + " opens Text2Craft while playing.", 77);
     }
 
     private void line(DrawContext context, String text, int y) {
